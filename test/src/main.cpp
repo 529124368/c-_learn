@@ -1,11 +1,12 @@
 #include <drogon/drogon.h>
 using namespace drogon;
-
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+#pragma comment(lib, "Iphlpapi.lib")
 int main()
 {
-    // `registerHandler()` adds a handler to the desired path. The handler is
-    // responsible for generating a HTTP response upon an HTTP request being
-    // sent to Drogon
+    auto j3 = json::parse(R"({"happy": true, "pi": 3.141})");
+    std::cout << j3["pi"] << std::endl;
     app().registerHandler(
         "/",
         [](const HttpRequestPtr &,
